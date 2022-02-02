@@ -1,0 +1,11 @@
+base_config: ./fs.yaml
+task_cls: tasks.tts.fs2_orig.FastSpeech2OrigTask
+encoder_type: fft
+decoder_type: fft
+use_energy_embed: true
+use_pitch_embed: true
+pitch_type: cwt # frame|ph|cwt
+binarization_args:
+  with_f0cwt: true
+use_gt_energy: false
+cwt_std_scale: 1.0
