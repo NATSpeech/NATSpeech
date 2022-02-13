@@ -8,7 +8,6 @@
 <p> NATSpeech: A Non-Autoregressive Text-to-Speech Framework</p>
 </h2>
 
-----
 <div align="center">
 
 [![](https://img.shields.io/github/stars/NATSpeech/NATSpeech)](https://github.com/NATSpeech/NATSpeech)
