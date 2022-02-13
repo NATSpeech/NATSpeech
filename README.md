@@ -8,6 +8,17 @@
 <p> NATSpeech: A Non-Autoregressive Text-to-Speech Framework</p>
 </h2>
 
+----
+<div align="center">
+
+[![](https://img.shields.io/github/stars/NATSpeech/NATSpeech)](https://github.com/NATSpeech/NATSpeech)
+[![](https://img.shields.io/github/forks/NATSpeech/NATSpeech)](https://github.com/NATSpeech/NATSpeech)
+[![](https://img.shields.io/github/license/NATSpeech/NATSpeech)](https://github.com/NATSpeech/NATSpeech/blob/main/LICENSE)
+[![](https://img.shields.io/github/downloads/NATSpeech/NATSpeech/total?label=pretrained+model+downloads)](https://github.com/NATSpeech/NATSpeech/releases/tag/pretrained_models)
+
+</div>
+
+
 This repo contains official PyTorch implementation of:
 
 - [PortaSpeech: Portable and High-Quality Generative Text-to-Speech](https://proceedings.neurips.cc/paper/2021/file/748d6b6ed8e13f857ceaa6cfbdca14b8-Paper.pdf) (NeurIPS 2021)  
