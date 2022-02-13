@@ -27,7 +27,7 @@ Add your model to `modules`.
 
 Task classes are used to manage the training and inference procedures.
 
-A new task (e.g., `tasks.tts.fs.FastSpeechTask`) should inherit the base task (`tasks.tts.speech_base.TTSBaseTask`)
+A new task (e.g., `tasks.tts.fs.FastSpeechTask`) should inherit the base task (`tasks.tts.speech_base.SpeechBaseTask`)
 class.
 
 You must implement these methods:

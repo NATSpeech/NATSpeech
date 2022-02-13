@@ -13,54 +13,53 @@
 [![](https://img.shields.io/github/stars/NATSpeech/NATSpeech)](https://github.com/NATSpeech/NATSpeech)
 [![](https://img.shields.io/github/forks/NATSpeech/NATSpeech)](https://github.com/NATSpeech/NATSpeech)
 [![](https://img.shields.io/github/license/NATSpeech/NATSpeech)](https://github.com/NATSpeech/NATSpeech/blob/main/LICENSE)
-[![](https://img.shields.io/github/downloads/NATSpeech/NATSpeech/total?label=pretrained+model+downloads)](https://github.com/NATSpeech/NATSpeech/releases/tag/pretrained_models) | [中文文档](./README-zh.md)
+[![](https://img.shields.io/github/downloads/NATSpeech/NATSpeech/total?label=pretrained+model+downloads)](https://github.com/NATSpeech/NATSpeech/releases/tag/pretrained_models) | [English README](./README.md)
 
 </div>
 
 
-This repo contains official PyTorch implementation of:
+本仓库包含了以下工作的官方PyTorch实现：
 
 - [PortaSpeech: Portable and High-Quality Generative Text-to-Speech](https://proceedings.neurips.cc/paper/2021/file/748d6b6ed8e13f857ceaa6cfbdca14b8-Paper.pdf) (NeurIPS 2021)  
-[Demo page](https://portaspeech.github.io/) | [HuggingFace🤗 Demo](https://huggingface.co/spaces/NATSpeech/PortaSpeech)
+[Demo页面](https://portaspeech.github.io/) | [HuggingFace🤗 Demo](https://huggingface.co/spaces/NATSpeech/PortaSpeech)
 - [DiffSinger: Singing Voice Synthesis via Shallow Diffusion Mechanism](https://arxiv.org/abs/2105.02446) (DiffSpeech) (AAAI 2022)  
-[Demo page](https://diffsinger.github.io/) | [Project page](https://github.com/MoonInTheRiver/DiffSinger) | [HuggingFace🤗 Demo](https://huggingface.co/spaces/NATSpeech/DiffSpeech)
+[Demo页面](https://diffsinger.github.io/) | [项目主页](https://github.com/MoonInTheRiver/DiffSinger) | [HuggingFace🤗 Demo](https://huggingface.co/spaces/NATSpeech/DiffSpeech)
 
-## Key Features 
-We implement the following features in this framework:
+## 主要特点 
+我们在本框架中实现了以下特点：
 
-- Data processing for non-autoregressive Text-to-Speech
-  using [Montreal Forced Aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner).
-- Convenient and scalable framework for training and inference.
-- Simple but efficient random-access dataset implementation.
+- 基于[Montreal Forced Aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner)的非自回归语音合成数据处理流程；
+- 便于使用和可扩展的训练和测试框架；
+- 简单但有效的随机访问数据集类的实现。
 
-## Install Dependencies
+## 安装依赖
 
 ```bash
-## We tested on Linux/Ubuntu 18.04. 
-## Install Python 3.6+ first (Anaconda recommended).
+## 在 Linux/Ubuntu 18.04 上通过测试 
+## 首先需要安装 Python 3.6+ (推荐使用Anaconda)
 
 export PYTHONPATH=.
-# build a virtual env (recommended).
+# 创建虚拟环境 (推荐).
 python -m venv venv
 source venv/bin/activate
-# install requirements.
+# 安装依赖
 pip install -U pip
 pip install Cython numpy==1.19.1
-pip install torch==1.9.0 # torch >= 1.9.0 recommended
+pip install torch==1.9.0 # 推荐 torch >= 1.9.0
 pip install -r requirements.txt
 sudo apt install -y sox libsox-fmt-mp3
-bash mfa_usr/install_mfa.sh # install forced alignment tool
+bash mfa_usr/install_mfa.sh # 安装强制对齐工具
 ```
 
-## Documents
+## 文档
 
-- [About the framework](./docs/framework.md)
-- [Run PortaSpeech](./docs/portaspeech.md)
-- [Run DiffSpeech](./docs/diffspeech.md)
+- [关于本框架](./docs/zh/framework.md)
+- [运行PortaSpeech](./docs/portaspeech.md)
+- [运行DiffSpeech](./docs/diffspeech.md)
 
-## Citation
+## 引用
 
-If you find this useful for your research, please cite the following papers:
+如果本REPO对你的研究和工作有用，请引用以下论文：
 
 - PortaSpeech
 
@@ -86,9 +85,9 @@ If you find this useful for your research, please cite the following papers:
  }
 ```
 
-## Acknowledgments
+## 致谢
 
-Our codes are influenced by the following repos:
+我们的代码受以下代码和仓库启发：
 
 - [PyTorch Lightning](https://github.com/PyTorchLightning/pytorch-lightning)
 - [ParallelWaveGAN](https://github.com/kan-bayashi/ParallelWaveGAN)
