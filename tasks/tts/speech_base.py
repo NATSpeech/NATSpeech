@@ -86,10 +86,7 @@ class SpeechBaseTask(BaseTask):
 
     @data_loader
     def test_dataloader(self):
-        test_items = None
-        if hparams['test_input_yaml'] is not None and hparams['test_input_yaml'] != '':
-            test_items = self.load_test_inputs(hparams['test_input_yaml'])
-        test_dataset = self.dataset_cls(prefix=hparams['test_set_name'], shuffle=False, items=test_items)
+        test_dataset = self.dataset_cls(prefix=hparams['test_set_name'], shuffle=False)
         self.test_dl = self.build_dataloader(
             test_dataset, False, self.max_valid_tokens, self.max_valid_sentences, batch_by_size=False)
         return self.test_dl
@@ -279,32 +276,6 @@ class SpeechBaseTask(BaseTask):
     ##########################
     # testing
     ##########################
-    def load_test_inputs(self, input_path):
-        items = []
-        input_data = yaml.safe_load(open(input_path))
-        preprocess_cls, txt_processor, preprocess_args = load_data_preprocessor()
-        binarizer_cls, binarization_args = load_data_binarizer()
-        data_dir = hparams['binary_data_dir']
-        ph_encoder = build_token_encoder(f'{data_dir}/phone_set.json')
-        word_encoder = build_token_encoder(f'{data_dir}/word_set.json')
-        for data in input_data:
-            text_raw = data['text']
-            item_name = data['item_name']
-            spk_id = data['spk_id']
-            ref_wav_path = data.get('ref_wav_path')
-            ph, _, _, txt = preprocess_cls.process_text(txt_processor, text_raw, preprocess_args)
-            ph_with_sep = ph
-            if not binarization_args['with_phsep']:
-                ph = ph.replace(" #", "").replace(" |", "")
-            item = {'item_name': item_name, 'txt': txt, 'ph': ph, 'spk_id': spk_id,
-                    'ph_token': ph_encoder.encode(ph)}
-            item['ph_len'] = len(item['ph_token'])
-            binarizer_cls.process_word(ph_with_sep, ph, word_encoder, item, binarization_args)
-            if hparams['ref_wav_path'] is not None:
-                binarizer_cls.process_audio(ref_wav_path, item, binarization_args)
-            items.append(item)
-        return items
-
     def test_start(self):
         self.saving_result_pool = MultiprocessManager(int(os.getenv('N_PROC', os.cpu_count())))
         self.saving_results_futures = []

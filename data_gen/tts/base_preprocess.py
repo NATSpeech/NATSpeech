@@ -23,6 +23,7 @@ class BasePreprocessor:
         self.txt_processor = get_txt_processor_cls(txt_processor)
         self.raw_data_dir = hparams['raw_data_dir']
         self.processed_dir = hparams['processed_data_dir']
+        self.spk_map_fn = f"{self.processed_dir}/spk_map.json"
 
     def meta_data(self):
         """
@@ -211,8 +212,7 @@ class BasePreprocessor:
         spk_map = {x: i for i, x in enumerate(sorted(list(spk_names)))}
         assert len(spk_map) == 0 or len(spk_map) <= hparams['num_spk'], len(spk_map)
         print(f"| Number of spks: {len(spk_map)}, spk_map: {spk_map}")
-        spk_map_fn = f"{self.processed_dir}/spk_map.json"
-        json.dump(spk_map, open(spk_map_fn, 'w'), ensure_ascii=False)
+        json.dump(spk_map, open(self.spk_map_fn, 'w'), ensure_ascii=False)
         return spk_map
 
     @classmethod
@@ -231,6 +231,16 @@ class BasePreprocessor:
         with open(f'{mfa_input_group_dir}/{item_name}.lab', 'w') as f_txt:
             f_txt.write(ph_gb_word_nosil)
         return ph_gb_word_nosil, new_wav_align_fn
+
+    def load_spk_map(self, base_dir):
+        spk_map_fn = f"{base_dir}/spk_map.json"
+        spk_map = json.load(open(spk_map_fn, 'r'))
+        return spk_map
+
+    def load_dict(self, base_dir):
+        ph_encoder = build_token_encoder(f'{base_dir}/phone_set.json')
+        word_encoder = build_token_encoder(f'{base_dir}/word_set.json')
+        return ph_encoder, word_encoder
 
     @property
     def meta_csv_filename(self):

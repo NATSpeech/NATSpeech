@@ -38,14 +38,12 @@ fvae_enc_n_layers: 8
 fvae_dec_n_layers: 4
 fvae_strides: 4
 fvae_noise_scale: 1.0
-post_decoder: false
-post_decoder_detach_ling: false
 
 # prior flow
 use_prior_flow: true
-prior_glow_hidden: 64
-glow_kernel_size: 3
-prior_glow_n_blocks: 4
+prior_flow_hidden: 64
+prior_flow_kernel_size: 3
+prior_flow_n_blocks: 4
 
 ###########################
 # training and inference

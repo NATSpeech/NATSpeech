@@ -4,6 +4,7 @@
 !/checkpoints/.gitkeep
 /data/*
 !/data/.gitkeep
+infer_out
 rsync
 .idea
 .DS_Store

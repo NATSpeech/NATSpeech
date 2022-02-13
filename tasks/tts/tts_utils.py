@@ -38,19 +38,17 @@ def load_data_preprocessor():
     preprocess_cls = hparams["preprocess_cls"]
     pkg = ".".join(preprocess_cls.split(".")[:-1])
     cls_name = preprocess_cls.split(".")[-1]
-    preprocess_cls: BasePreprocessor = getattr(importlib.import_module(pkg), cls_name)
+    preprocessor: BasePreprocessor = getattr(importlib.import_module(pkg), cls_name)()
     preprocess_args = {}
     preprocess_args.update(hparams['preprocess_args'])
-    txt_processor = preprocess_args['txt_processor']
-    txt_processor = get_txt_processor_cls(txt_processor)
-    return preprocess_cls, txt_processor, preprocess_args
+    return preprocessor, preprocess_args
 
 
 def load_data_binarizer():
     binarizer_cls = hparams['binarizer_cls']
     pkg = ".".join(binarizer_cls.split(".")[:-1])
     cls_name = binarizer_cls.split(".")[-1]
-    binarizer_cls: BaseBinarizer = getattr(importlib.import_module(pkg), cls_name)
+    binarizer: BaseBinarizer = getattr(importlib.import_module(pkg), cls_name)()
     binarization_args = {}
     binarization_args.update(hparams['binarization_args'])
-    return binarizer_cls, binarization_args
+    return binarizer, binarization_args

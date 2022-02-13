@@ -1,4 +1,4 @@
-# Run FastSpeech 2
+# Run DiffSpeech
 
 ## Quick Start
 
@@ -9,8 +9,8 @@ Install dependencies following [readme.md](../readme.md)
 ### Set Config Path and Experiment Name
 
 ```bash
-export CONFIG_NAME=egs/datasets/audio/lj/fs2_orig.yaml
-export MY_EXP_NAME=fs2_exp
+export CONFIG_NAME=egs/datasets/audio/lj/ds.yaml
+export MY_EXP_NAME=ds_exp
 ```
 
 ### Preprocess and binary dataset
@@ -22,6 +22,14 @@ Prepare dataset following [prepare_data.md](./prepare_data.md)
 Prepare vocoder following [prepare_vocoder.md](./prepare_vocoder.md)
 
 ## Training
+
+First, you need a pre-trained FastSpeech2 checkpoint `chckpoints/fs2_exp/model_ckpt_steps_160000.ckpt`. To train a FastSpeech 2 model, run: 
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python tasks/run.py --config egs/datasets/audio/lj/fs2_orig.yaml --exp_name fs2_exp --reset
+```
+
+Then, run:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python tasks/run.py --config $CONFIG_NAME --exp_name $MY_EXP_NAME --reset
@@ -43,11 +51,12 @@ CUDA_VISIBLE_DEVICES=0 python tasks/run.py --config $CONFIG_NAME --exp_name $MY_
 
 If you find this useful for your research, please use the following.
 
-```
-@inproceedings{ren2020fastspeech,
-  title={FastSpeech 2: Fast and High-Quality End-to-End Text to Speech},
-  author={Ren, Yi and Hu, Chenxu and Tan, Xu and Qin, Tao and Zhao, Sheng and Zhao, Zhou and Liu, Tie-Yan},
-  booktitle={International Conference on Learning Representations},
-  year={2020}
-}
+```bib
+@article{liu2021diffsinger,
+  title={Diffsinger: Singing voice synthesis via shallow diffusion mechanism},
+  author={Liu, Jinglin and Li, Chengxi and Ren, Yi and Chen, Feiyang and Liu, Peng and Zhao, Zhou},
+  journal={arXiv preprint arXiv:2105.02446},
+  volume={2},
+  year={2021}
+ }
 ```

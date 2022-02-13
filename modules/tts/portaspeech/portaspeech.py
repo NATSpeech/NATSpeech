@@ -74,9 +74,9 @@ class PortaSpeech(FastSpeech):
                 dec_n_layers=hparams['fvae_dec_n_layers'],
                 c_cond=self.hidden_size,
                 use_prior_flow=hparams['use_prior_flow'],
-                flow_hidden=hparams['prior_glow_hidden'],
-                flow_kernel_size=hparams['glow_kernel_size'],
-                flow_n_steps=hparams['prior_glow_n_blocks'],
+                flow_hidden=hparams['prior_flow_hidden'],
+                flow_kernel_size=hparams['prior_flow_kernel_size'],
+                flow_n_steps=hparams['prior_flow_n_blocks'],
                 strides=[hparams['fvae_strides']],
                 encoder_type=hparams['fvae_encoder_type'],
                 decoder_type=hparams['fvae_decoder_type'],
@@ -88,11 +88,6 @@ class PortaSpeech(FastSpeech):
             self.pitch_embed = Embedding(300, self.hidden_size, 0)
         if self.hparams['add_word_pos']:
             self.word_pos_proj = Linear(self.hidden_size, self.hidden_size)
-        if self.hparams['post_decoder']:
-            self.post_decoder_proj_in = Linear(self.out_dims, self.hidden_size)
-            self.post_decoder = ConditionalConvBlocks(
-                self.hidden_size, self.hidden_size, self.out_dims, None,
-                hparams['dec_kernel_size'], num_layers=4)
 
     def build_embedding(self, dictionary, embed_dim):
         num_embeddings = len(dictionary)
@@ -188,11 +183,6 @@ class PortaSpeech(FastSpeech):
                     z = torch.randn_like(z)
             x_recon = self.fvae.decoder(z, nonpadding=tgt_nonpadding_BHT, cond=x).transpose(1, 2)
             ret['pre_mel_out'] = x_recon
-            if self.hparams['post_decoder']:
-                x_recon = self.post_decoder_proj_in(x_recon.detach())
-                if self.hparams['post_decoder_detach_ling']:
-                    decoder_inp = decoder_inp.detach()
-                x_recon = self.post_decoder(x_recon, decoder_inp) * tgt_nonpadding
             return x_recon
 
     def forward_dur(self, dur_input, mel2word, ret, **kwargs):
@@ -223,3 +213,14 @@ class PortaSpeech(FastSpeech):
         x_pos = (x_pos.cumsum(-1) / x_pos.sum(-1).clamp(min=1)[..., None] * x_pos).sum(1)
         x_pos = self.sin_pos(x_pos.float())  # [B, T_ph, H]
         return x_pos
+
+    def store_inverse_all(self):
+        def remove_weight_norm(m):
+            try:
+                if hasattr(m, 'store_inverse'):
+                    m.store_inverse()
+                nn.utils.remove_weight_norm(m)
+            except ValueError:  # this module didn't have weight norm
+                return
+
+        self.apply(remove_weight_norm)

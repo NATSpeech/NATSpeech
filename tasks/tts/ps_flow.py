@@ -132,11 +132,3 @@ class PortaSpeechFlowTask(PortaSpeechTask):
 
     def build_scheduler(self, optimizer):
         return FastSpeechTask.build_scheduler(self, optimizer[0])
-
-    ############
-    # infer
-    ############
-    def test_start(self):
-        super().test_start()
-        if hparams['use_post_flow']:
-            self.model.post_flow.store_inverse()

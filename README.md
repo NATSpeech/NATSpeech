@@ -1,6 +1,6 @@
 # NATSpeech
 
-A boilerplate for Non-Autoregressive Text-to-Speech. We implement the following features in this boilerplate:
+A Non-Autoregressive Text-to-Speech (NAR-TTS) framework. We implement the following features in this framework:
 
 - Data processing for non-autoregressive Text-to-Speech
   using [Montreal Forced Aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner).
@@ -9,10 +9,8 @@ A boilerplate for Non-Autoregressive Text-to-Speech. We implement the following 
 
 This repo also contains official PyTorch implementation for:
 
-- [PortaSpeech: Portable and High-Quality Generative Text-to-Speech](https://proceedings.neurips.cc/paper/2021/file/748d6b6ed8e13f857ceaa6cfbdca14b8-Paper.pdf) (
-  NeurIPS 2021) | [Demo page](https://portaspeech.github.io/)
-- [FastSpeech 2: Fast and High-Quality End-to-End Text to Speech](https://openreview.net/pdf?id=piLPYqxtWuA) (ICLR 2020)
-  | [Demo page](https://speechresearch.github.io/fastspeech2/)
+- [PortaSpeech: Portable and High-Quality Generative Text-to-Speech](https://proceedings.neurips.cc/paper/2021/file/748d6b6ed8e13f857ceaa6cfbdca14b8-Paper.pdf) (NeurIPS 2021) | [Demo page](https://portaspeech.github.io/)
+- [DiffSinger: Singing Voice Synthesis via Shallow Diffusion Mechanism](https://arxiv.org/abs/2105.02446) (DiffSpeech) (AAAI 2022) | [Demo page](https://diffsinger.github.io/) | [Project page](https://github.com/MoonInTheRiver/DiffSinger)
 
 ## Install Dependencies
 
@@ -37,26 +35,15 @@ bash mfa_usr/install_mfa.sh # install forced alignment tool
 
 - [About the framework](./docs/framework.md)
 - [Run PortaSpeech](./docs/portaspeech.md)
-- [Run FastSpeech 2](./docs/fastspeech2.md)
+- [Run DiffSpeech](./docs/diffspeech.md)
 
 ## Citation
 
 If you find this useful for your research, please use the following.
 
-- FastSpeech 2
-
-```
-@inproceedings{ren2020fastspeech,
-  title={FastSpeech 2: Fast and High-Quality End-to-End Text to Speech},
-  author={Ren, Yi and Hu, Chenxu and Tan, Xu and Qin, Tao and Zhao, Sheng and Zhao, Zhou and Liu, Tie-Yan},
-  booktitle={International Conference on Learning Representations},
-  year={2020}
-}
-```
-
 - PortaSpeech
 
-```
+```bib
 @article{ren2021portaspeech,
   title={PortaSpeech: Portable and High-Quality Generative Text-to-Speech},
   author={Ren, Yi and Liu, Jinglin and Zhao, Zhou},
@@ -64,6 +51,18 @@ If you find this useful for your research, please use the following.
   volume={34},
   year={2021}
 }
+```
+
+- DiffSpeech
+
+```bib
+@article{liu2021diffsinger,
+  title={Diffsinger: Singing voice synthesis via shallow diffusion mechanism},
+  author={Liu, Jinglin and Li, Chengxi and Ren, Yi and Chen, Feiyang and Liu, Peng and Zhao, Zhou},
+  journal={arXiv preprint arXiv:2105.02446},
+  volume={2},
+  year={2021}
+ }
 ```
 
 ## Acknowledgments

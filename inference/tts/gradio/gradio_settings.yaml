@@ -1,0 +1,12 @@
+title: 'NATSpeech/PortaSpeech'
+description: |
+  Gradio demo for NATSpeech/PortaSpeech. To use it, simply add your audio, or click one of the examples to load them. Note: This space is running on CPU, inference times will be higher.
+article: |
+  Link to <a href='https://github.com/NATSpeech/NATSpeech/blob/main/docs/portaspeech.md' style='color:blue;' target='_blank\'>Github REPO</a>
+example_inputs:
+  - |-
+    the invention of movable metal letters in the middle of the fifteenth century may justly be considered as the invention of the art of printing.
+  - |-
+    produced the block books, which were the immediate predecessors of the true printed book,
+inference_cls: inference.tts.ps_flow.PortaSpeechFlowInfer
+exp_name: ps_normal_exp

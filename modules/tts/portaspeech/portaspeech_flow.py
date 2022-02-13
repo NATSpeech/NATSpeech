@@ -70,6 +70,6 @@ class PortaSpeechFlow(PortaSpeech):
                 ret['postflow'] = None
         else:
             nonpadding = torch.ones_like(x_recon[:, :1, :])
-            z_post = prior_dist.sample(x_recon.shape).to(g.device) * self.hparams['noise_scale']
+            z_post = torch.randn(x_recon.shape).to(g.device) * self.hparams['noise_scale']
             x_recon, _ = self.post_flow(z_post, nonpadding, g, reverse=True)
             ret['mel_out'] = x_recon.transpose(1, 2)

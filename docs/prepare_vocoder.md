@@ -7,9 +7,9 @@ We use [HiFi-GAN](https://github.com/jik876/hifi-gan) as the default vocoder.
 ### Use Pretrained Model
 
 ```bash
-wget https://github.com/xx/xx/releases/download/pretrain-model/hifi_lj_1.zip
-unzip hifi_lj_1.zip
-mv hifi_lj_1 checkpoints/hifi_lj_1
+wget https://github.com/xx/xx/releases/download/pretrain-model/hifi_lj.zip
+unzip hifi_lj.zip
+mv hifi_lj checkpoints/hifi_lj
 ```
 
 ### Train Your Vocoder
@@ -26,7 +26,7 @@ export MY_EXP_NAME=my_hifigan_exp
 Prepare dataset following [prepare_data.md](./prepare_data.md). 
 
 If you have run the `prepare_data` step of the acoustic
-model (e.g., FastSpeech 2 and PortaSpeech), you only need to binarize the dataset for the vocoder training:
+model (e.g., PortaSpeech and DiffSpeech), you only need to binarize the dataset for the vocoder training:
 
 ```bash
 python data_gen/tts/runs/binarize.py --config $CONFIG_NAME

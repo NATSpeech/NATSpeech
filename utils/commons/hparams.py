@@ -39,7 +39,7 @@ def set_hparams(config='', exp_name='', hparams_str='', print_hparams=True, glob
         print("| Unknow hparams: ", unknown)
     else:
         args = Args(config=config, exp_name=exp_name, hparams=hparams_str,
-                    infer=False, validate=False, reset=False, debug=False)
+                    infer=False, validate=False, reset=False, debug=False, remove=False)
     global hparams
     assert args.config != '' or args.exp_name != ''
     if args.config != '':

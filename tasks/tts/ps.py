@@ -58,8 +58,6 @@ class PortaSpeechTask(FastSpeechTask):
             losses_kl = min(self.global_step / hparams['kl_start_steps'], 1) * losses_kl
             losses_kl = losses_kl * hparams['lambda_kl']
             losses['kl'] = losses_kl
-            if hparams['post_decoder']:
-                self.add_mel_loss(output['pre_mel_out'], sample['mels'], losses, '_post')
             self.add_mel_loss(output['mel_out'], sample['mels'], losses)
             if hparams['dur_level'] == 'word':
                 self.add_dur_loss(
@@ -158,14 +156,7 @@ class PortaSpeechTask(FastSpeechTask):
         super().test_start()
         if hparams.get('save_attn', False):
             os.makedirs(f'{self.gen_dir}/attn', exist_ok=True)
-
-        def remove_weight_norm(m):
-            try:
-                nn.utils.remove_weight_norm(m)
-            except ValueError:
-                return
-
-        self.apply(remove_weight_norm)
+        self.model.store_inverse_all()
 
     def test_step(self, sample, batch_idx):
         assert sample['txt_tokens'].shape[0] == 1, 'only support batch_size=1 in inference'

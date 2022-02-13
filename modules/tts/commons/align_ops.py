@@ -13,9 +13,8 @@ def mel2ph_to_mel2word(mel2ph, ph2word):
 
 
 def clip_mel2token_to_multiple(mel2token, frames_multiple):
-    if mel2token.shape[1] % frames_multiple > 0:
-        max_frames = mel2token.shape[1] // frames_multiple * frames_multiple
-        mel2token = mel2token[:, :max_frames]
+    max_frames = mel2token.shape[1] // frames_multiple * frames_multiple
+    mel2token = mel2token[:, :max_frames]
     return mel2token
 
 

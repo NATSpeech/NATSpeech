@@ -125,7 +125,7 @@ class FVAE(nn.Module):
             return z_q, loss_kl, z_p, m_q, logs_q
         else:
             latent_shape = [cond_sqz.shape[0], self.latent_size, cond_sqz.shape[2]]
-            z_p = self.prior_dist.sample(latent_shape).to(cond.device) * noise_scale
+            z_p = torch.randn(latent_shape).to(cond.device) * noise_scale
             if self.use_prior_flow:
                 z_p = self.prior_flow(z_p, 1, cond_sqz, reverse=True)
             return z_p

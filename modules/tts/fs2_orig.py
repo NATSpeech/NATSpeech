@@ -86,11 +86,8 @@ class FastSpeech2Orig(FastSpeech):
             return super(FastSpeech2Orig, self).forward_pitch(decoder_inp, f0, uv, mel2ph, ret, encoder_out)
 
     def forward_energy(self, decoder_inp, energy, ret):
-        energy_pred_inp = decoder_inp
-        if self.hparams['predictor_grad'] != 1:
-            energy_pred_inp = energy_pred_inp.detach() + \
-                              self.hparams['predictor_grad'] * (energy_pred_inp - energy_pred_inp.detach())
-        ret['energy_pred'] = energy_pred = self.energy_predictor(energy_pred_inp)[:, :, 0]
+        decoder_inp = decoder_inp.detach() + self.hparams['predictor_grad'] * (decoder_inp - decoder_inp.detach())
+        ret['energy_pred'] = energy_pred = self.energy_predictor(decoder_inp)[:, :, 0]
         energy_embed_inp = energy_pred if energy is None else energy
         energy_embed_inp = torch.clamp(energy_embed_inp * 256 // 4, min=0, max=255).long()
         energy_embed = self.energy_embed(energy_embed_inp)

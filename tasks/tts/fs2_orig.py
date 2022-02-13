@@ -52,7 +52,7 @@ class FastSpeech2OrigTask(FastSpeechTask):
         dict_size = len(self.token_encoder)
         self.model = FastSpeech2Orig(dict_size, hparams)
 
-    def energyrun_model(self, sample, infer=False, *args, **kwargs):
+    def run_model(self, sample, infer=False, *args, **kwargs):
         txt_tokens = sample['txt_tokens']  # [B, T_t]
         spk_embed = sample.get('spk_embed')
         spk_id = sample.get('spk_ids')
