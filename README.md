@@ -1,6 +1,14 @@
-# NATSpeech
+<p align="center">
+    <br>
+    <img src="assets/logo.png" width="400"/>
+    <br>
+</p>
 
-A Non-Autoregressive Text-to-Speech (NAR-TTS) framework. This repo contains official PyTorch implementation of:
+<h2 align="center">
+<p> NATSpeech: A Non-Autoregressive Text-to-Speech Framework</p>
+</h2>
+
+This repo contains official PyTorch implementation of:
 
 - [PortaSpeech: Portable and High-Quality Generative Text-to-Speech](https://proceedings.neurips.cc/paper/2021/file/748d6b6ed8e13f857ceaa6cfbdca14b8-Paper.pdf) (NeurIPS 2021)  
 [Demo page](https://portaspeech.github.io/) | [HuggingFace🤗 Demo](https://huggingface.co/spaces/NATSpeech/PortaSpeech)
