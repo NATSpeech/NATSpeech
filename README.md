@@ -77,3 +77,4 @@ Our codes are influenced by the following repos:
 - [Hifi-GAN](https://github.com/jik876/hifi-gan)
 - [espnet](https://github.com/espnet/espnet)
 - [Glow-TTS](https://github.com/jaywalnut310/glow-tts)
+- [DiffSpeech](https://github.com/MoonInTheRiver/DiffSinger)
