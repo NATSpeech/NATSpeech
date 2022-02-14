@@ -17,12 +17,12 @@ class FastSpeech2Orig(FastSpeech):
             self.energy_embed = Embedding(300, self.hidden_size, 0)
             self.energy_predictor = EnergyPredictor(
                 self.hidden_size, n_chans=predictor_hidden,
-                n_layers=5, dropout_rate=0.1, odim=2,
+                n_layers=hparams['predictor_layers'], dropout_rate=hparams['predictor_dropout'], odim=2,
                 kernel_size=hparams['predictor_kernel'])
         if hparams['pitch_type'] == 'cwt' and hparams['use_pitch_embed']:
             self.pitch_predictor = PitchPredictor(
                 self.hidden_size, n_chans=predictor_hidden,
-                n_layers=5, dropout_rate=0.1, odim=11,
+                n_layers=hparams['predictor_layers'], dropout_rate=hparams['predictor_dropout'], odim=11,
                 kernel_size=hparams['predictor_kernel'])
             self.cwt_stats_layers = nn.Sequential(
                 nn.Linear(self.hidden_size, self.hidden_size), nn.ReLU(),
@@ -67,7 +67,7 @@ class FastSpeech2Orig(FastSpeech):
             decoder_inp = decoder_inp.detach() + self.hparams['predictor_grad'] * (decoder_inp - decoder_inp.detach())
             pitch_padding = mel2ph == 0
             ret['cwt'] = cwt_out = self.pitch_predictor(decoder_inp)
-            stats_out = self.cwt_stats_layers(encoder_out[:, 0, :])  # [B, 2]
+            stats_out = self.cwt_stats_layers(decoder_inp.mean(1))  # [B, 2]
             mean = ret['f0_mean'] = stats_out[:, 0]
             std = ret['f0_std'] = stats_out[:, 1]
             cwt_spec = cwt_out[:, :, :10]

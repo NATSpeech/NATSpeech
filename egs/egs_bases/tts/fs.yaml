@@ -36,10 +36,10 @@ dec_post_net_kernel: 3
 
 # duration
 predictor_hidden: -1
-predictor_kernel: 5
-predictor_layers: 2
 dur_predictor_kernel: 3
 dur_predictor_layers: 2
+predictor_kernel: 5
+predictor_layers: 5
 predictor_dropout: 0.5
 
 # pitch and energy

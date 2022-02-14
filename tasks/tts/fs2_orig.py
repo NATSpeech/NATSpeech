@@ -5,6 +5,8 @@ from tasks.tts.dataset_utils import FastSpeechDataset
 from tasks.tts.fs import FastSpeechTask
 from utils.commons.dataset_utils import collate_1d, collate_2d
 from utils.commons.hparams import hparams
+from utils.plot.plot import spec_to_figure
+import numpy as np
 
 
 class FastSpeech2OrigDataset(FastSpeechDataset):
@@ -87,6 +89,24 @@ class FastSpeech2OrigTask(FastSpeechTask):
             output = self.model(txt_tokens, mel2ph=mel2ph, spk_embed=spk_embed, spk_id=spk_id,
                                 f0=f0, uv=uv, energy=energy, infer=True)
             return output
+
+    def save_valid_result(self, sample, batch_idx, model_out):
+        super(FastSpeech2OrigTask, self).save_valid_result(sample, batch_idx, model_out)
+        self.plot_cwt(batch_idx, model_out['cwt'], sample['cwt_spec'])
+
+    def plot_cwt(self, batch_idx, cwt_out, cwt_gt=None):
+        if len(cwt_out.shape) == 3:
+            cwt_out = cwt_out[0]
+        if isinstance(cwt_out, torch.Tensor):
+            cwt_out = cwt_out.cpu().numpy()
+        if cwt_gt is not None:
+            if len(cwt_gt.shape) == 3:
+                cwt_gt = cwt_gt[0]
+            if isinstance(cwt_gt, torch.Tensor):
+                cwt_gt = cwt_gt.cpu().numpy()
+            cwt_out = np.concatenate([cwt_out, cwt_gt], -1)
+        name = f'cwt_val_{batch_idx}'
+        self.logger.add_figure(name, spec_to_figure(cwt_out), self.global_step)
 
     def add_pitch_loss(self, output, sample, losses):
         if hparams['pitch_type'] == 'cwt':
