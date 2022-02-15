@@ -25,13 +25,13 @@ Prepare vocoder following [prepare_vocoder.md](./prepare_vocoder.md)
 
 ## Training
 
-First, you need a pre-trained FastSpeech2 checkpoint `chckpoints/fs2_exp/model_ckpt_steps_160000.ckpt`. To train a FastSpeech 2 model, run: 
+First, you need a pre-trained FastSpeech2 checkpoint in `checkpoints/aux_exp`. You can use the [pre-trained model](https://github.com/NATSpeech/NATSpeech/releases/download/pretrained_models/aux_exp.zip), or train FastSpeech2 from scratch, run:
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python tasks/run.py --config egs/datasets/audio/lj/fs2_orig.yaml --exp_name fs2_exp --reset
+CUDA_VISIBLE_DEVICES=0 python tasks/run.py --config egs/datasets/audio/lj/fs2_orig.yaml --exp_name aux_exp --reset
 ```
 
-Then, run:
+Then, to train DiffSpeech, run:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python tasks/run.py --config $CONFIG_NAME --exp_name $MY_EXP_NAME --reset
