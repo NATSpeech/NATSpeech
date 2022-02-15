@@ -28,5 +28,6 @@ keep_bins: 80
 num_valid_plots: 10
 use_gt_dur: false
 use_gt_f0: false
+use_energy_embed: false
 #pitch_type: cwt
 max_updates: 160000

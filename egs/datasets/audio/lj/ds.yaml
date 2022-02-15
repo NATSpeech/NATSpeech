@@ -2,7 +2,7 @@ base_config:
   - egs/egs_bases/tts/ds.yaml
   - ./fs2_orig.yaml
 
-fs2_ckpt: checkpoints/fs2_exp/model_ckpt_steps_160000.ckpt
+fs2_ckpt: checkpoints/fs2orig_exp/model_ckpt_steps_100000.ckpt
 
 # spec_min and spec_max are calculated on the training set.
 spec_min: [ -4.7574, -4.6783, -4.6431, -4.5832, -4.5390, -4.6771, -4.8089, -4.7672,

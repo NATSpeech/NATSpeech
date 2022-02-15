@@ -26,12 +26,12 @@ class DiffSpeechTask(FastSpeech2OrigTask):
         self.model = GaussianDiffusion(dict_size, hparams)
         if hparams['fs2_ckpt'] != '':
             load_ckpt(self.model.fs2, hparams['fs2_ckpt'], 'model', strict=True)
-        for k, v in self.model.fs2.named_parameters():
-            if 'predictor' not in k:
-                v.requires_grad = False
-        # or
         # for k, v in self.model.fs2.named_parameters():
-        #     v.requires_grad = False
+        #     if 'predictor' not in k:
+        #         v.requires_grad = False
+        # or
+        for k, v in self.model.fs2.named_parameters():
+            v.requires_grad = False
 
     def build_optimizer(self, model):
         self.optimizer = optimizer = torch.optim.AdamW(
