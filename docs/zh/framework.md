@@ -2,7 +2,7 @@
 
 NATSpeech是一个简单的非自回归语音合成框架。
 
-## 目录机构
+## 目录结构
 
 - `egs`: 配置文件，被`utils/commons/hparams.py`读取
 - `data_gen`: 数据二进制化代码，便于随机访问，优化IO速度
