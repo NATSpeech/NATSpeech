@@ -149,7 +149,7 @@ class Trainer:
 
         model = task.build_model()
         if model is not None:
-            task.layers = model
+            task.model = model
         checkpoint, _ = get_last_checkpoint(self.work_dir, self.resume_from_checkpoint)
         if checkpoint is not None:
             self.restore_weights(checkpoint)
