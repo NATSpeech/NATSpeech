@@ -13,7 +13,7 @@
 [![](https://img.shields.io/github/stars/NATSpeech/NATSpeech)](https://github.com/NATSpeech/NATSpeech)
 [![](https://img.shields.io/github/forks/NATSpeech/NATSpeech)](https://github.com/NATSpeech/NATSpeech)
 [![](https://img.shields.io/github/license/NATSpeech/NATSpeech)](https://github.com/NATSpeech/NATSpeech/blob/main/LICENSE)
-[![](https://img.shields.io/github/downloads/NATSpeech/NATSpeech/total?label=pretrained+model+downloads)](https://github.com/NATSpeech/NATSpeech/releases/tag/pretrained_models) | [中文文档](./README-zh.md)
+[![](https://img.shields.io/github/downloads/NATSpeech/NATSpeech/total?label=pretrained+model+downloads)](https://github.com/NATSpeech/NATSpeech/releases/tag/pretrained_models) | [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-blue)](https://huggingface.co/NATSpeech) | [中文文档](./README-zh.md) 
 
 </div>
 
