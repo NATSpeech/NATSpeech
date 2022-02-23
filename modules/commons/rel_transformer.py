@@ -325,67 +325,6 @@ class RelTransformerEncoder(nn.Module):
                  n_heads,
                  n_layers,
                  kernel_size,
-                 p_dropout,
-                 window_size=4,
-                 block_length=None,
-                 prenet=True,
-                 pre_ln=True,
-                 ):
-
-        super().__init__()
-
-        self.n_vocab = n_vocab
-        self.out_channels = out_channels
-        self.hidden_channels = hidden_channels
-        self.filter_channels = filter_channels
-        self.n_heads = n_heads
-        self.n_layers = n_layers
-        self.kernel_size = kernel_size
-        self.p_dropout = p_dropout
-        self.window_size = window_size
-        self.block_length = block_length
-        self.prenet = prenet
-        self.emb = Embedding(n_vocab, hidden_channels, padding_idx=0)
-
-        if prenet:
-            self.pre = ConvReluNorm(hidden_channels, hidden_channels, hidden_channels,
-                                    kernel_size=5, n_layers=3, p_dropout=0)
-        self.encoder = Encoder(
-            hidden_channels,
-            filter_channels,
-            n_heads,
-            n_layers,
-            kernel_size,
-            p_dropout,
-            window_size=window_size,
-            block_length=block_length,
-            pre_ln=pre_ln,
-        )
-
-    def forward(self, x, x_mask=None):
-        if self.n_vocab > 0:
-            x_lengths = (x > 0).long().sum(-1)
-            x = self.emb(x) * math.sqrt(self.hidden_channels)  # [b, t, h]
-        else:
-            x_lengths = (x.abs().sum(-1) > 0).long().sum(-1)
-        x = torch.transpose(x, 1, -1)  # [b, h, t]
-        x_mask = torch.unsqueeze(sequence_mask(x_lengths, x.size(2)), 1).to(x.dtype)
-
-        if self.prenet:
-            x = self.pre(x, x_mask)
-        x = self.encoder(x, x_mask)
-        return x.transpose(1, 2)
-
-
-class RelTransformerEncoder(nn.Module):
-    def __init__(self,
-                 n_vocab,
-                 out_channels,
-                 hidden_channels,
-                 filter_channels,
-                 n_heads,
-                 n_layers,
-                 kernel_size,
                  p_dropout=0.0,
                  window_size=4,
                  block_length=None,
