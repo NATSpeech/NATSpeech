@@ -187,7 +187,7 @@ class BaseBinarizer:
             raise BinarizationError(f"Align not found")
         if np.array(mel2ph).max() - 1 >= len(ph_token):
             raise BinarizationError(
-                f"Align does not match: mel2ph.max() - 1: {mel2ph.max() - 1}, len(phone_encoded): {len(ph_token)}")
+                f"Align does not match: mel2ph.max() - 1: {np.array(mel2ph).max() - 1}, len(phone_encoded): {len(ph_token)}")
         item['mel2ph'] = mel2ph
         item['dur'] = dur
 
