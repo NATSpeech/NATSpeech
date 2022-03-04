@@ -120,7 +120,7 @@ def multiprocess_run(map_func, args, num_workers=None, ordered=True, init_ctx_fu
         for job_i, res in manager.get_results():
             results[job_i] = res
             while i_now < n_jobs and (not isinstance(results[i_now], str) or results[i_now] != '<WAIT>'):
-                yield job_i, results[i_now]
+                yield i_now, results[i_now]
                 results[i_now] = None
                 i_now += 1
     else:
