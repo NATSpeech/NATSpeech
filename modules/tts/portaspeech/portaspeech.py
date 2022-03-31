@@ -98,10 +98,9 @@ class PortaSpeech(FastSpeech):
                 spk_embed=None, spk_id=None, pitch=None, infer=False, tgt_mels=None,
                 global_step=None, *args, **kwargs):
         ret = {}
-        x, tgt_nonpadding = self.run_text_encoder(
-            txt_tokens, word_tokens, ph2word, word_len, mel2word, mel2ph, ret)
         style_embed = self.forward_style_embed(spk_embed, spk_id)
-        x = x + style_embed
+        x, tgt_nonpadding = self.run_text_encoder(
+            txt_tokens, word_tokens, ph2word, word_len, mel2word, mel2ph, style_embed, ret)
         x = x * tgt_nonpadding
         ret['nonpadding'] = tgt_nonpadding
         if self.hparams['use_pitch_embed']:
@@ -110,12 +109,12 @@ class PortaSpeech(FastSpeech):
         ret['mel_out_fvae'] = ret['mel_out'] = self.run_decoder(x, tgt_nonpadding, ret, infer, tgt_mels, global_step)
         return ret
 
-    def run_text_encoder(self, txt_tokens, word_tokens, ph2word, word_len, mel2word, mel2ph, ret):
+    def run_text_encoder(self, txt_tokens, word_tokens, ph2word, word_len, mel2word, mel2ph, style_embed, ret):
         word2word = torch.arange(word_len)[None, :].to(ph2word.device) + 1  # [B, T_mel, T_word]
         src_nonpadding = (txt_tokens > 0).float()[:, :, None]
-        ph_encoder_out = self.encoder(txt_tokens) * src_nonpadding
+        ph_encoder_out = self.encoder(txt_tokens) * src_nonpadding + style_embed
         if self.hparams['use_word_encoder']:
-            word_encoder_out = self.word_encoder(word_tokens)
+            word_encoder_out = self.word_encoder(word_tokens) + style_embed
             ph_encoder_out = ph_encoder_out + expand_states(word_encoder_out, ph2word)
         if self.hparams['dur_level'] == 'word':
             word_encoder_out = 0
