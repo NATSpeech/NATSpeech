@@ -11,6 +11,7 @@ class PortaSpeechFlowInfer(BaseTTSInfer):
         word_dict_size = len(self.word_encoder)
         model = PortaSpeechFlow(ph_dict_size, word_dict_size, self.hparams)
         load_ckpt(model, hparams['work_dir'], 'model')
+        model.to(self.device)
         with torch.no_grad():
             model.store_inverse_all()
         model.eval()
