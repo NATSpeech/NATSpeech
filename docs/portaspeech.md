@@ -6,7 +6,7 @@
 
 ### Install Dependencies
 
-Install dependencies following [readme.md](../readme.md)
+Install dependencies following [README.md](../README.md)
 
 ### Set Config Path and Experiment Name
 
