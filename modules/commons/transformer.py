@@ -735,9 +735,8 @@ class FastSpeechEncoder(FFTBlocks):
     def forward_embedding(self, txt_tokens):
         # embed tokens and positions
         x = self.embed_scale * self.embed_tokens(txt_tokens)
-        if self.use_pos_embed:
-            positions = self.embed_positions(txt_tokens)
-            x = x + positions
+        positions = self.embed_positions(txt_tokens)
+        x = x + positions
         x = F.dropout(x, p=self.dropout, training=self.training)
         return x
 
